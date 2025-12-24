@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root { height: 100%; }
+
+/********* components *********/
+.container-app { @apply max-w-[1400px] mx-auto px-4; }
+.card { @apply bg-panel rounded-lg shadow-soft border border-secondary/40; }
+.card-header { @apply px-4 py-3 border-b border-secondary/50 text-sm text-muted uppercase tracking-wide; }
+.card-body { @apply p-4; }
+.badge { @apply px-2 py-0.5 rounded text-xs; }
+.badge-green { @apply badge bg-green-500/20 text-green-400; }
+.badge-red { @apply badge bg-red-500/20 text-red-400; }
+.btn { @apply inline-flex items-center gap-2 px-4 py-2 rounded bg-secondary hover:bg-secondary/80 transition text-sm; }
+.btn-primary { @apply bg-primary text-black hover:brightness-110; }
+
+/********* tv widget container *********/
+.tv-container iframe { border-radius: 0.5rem; }
