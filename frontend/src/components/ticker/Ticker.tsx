@@ -3,7 +3,7 @@ import { shallow } from 'zustand/shallow'
 import { useMarketStore } from '@/store/marketStore'
 
 export default function Ticker(){
-  const { tickerSymbols, prices, connect, disconnect } = useMarketStore(state => ({
+  const { tickerSymbols, prices, connect, disconnect } = useMarketStore((state) => ({
     tickerSymbols: state.tickerSymbols,
     prices: state.prices,
     connect: state.connect,

@@ -20,7 +20,12 @@ type Actions = {
 
 const DEFAULT_TICKERS = ['BTCUSDT','ETHUSDT','EURUSD','GBPUSD','SPX','NDX']
 
-export const useMarketStore = create<State & Actions>((set, get) => ({
+type SetState<T> = (
+  partial: Partial<T> | ((state: T) => Partial<T>),
+  replace?: boolean
+) => void
+
+export const useMarketStore = create<State & Actions>((set: SetState<State & Actions>, get: () => State & Actions) => ({
   prices: {},
   tickerSymbols: DEFAULT_TICKERS,
   connect: () => {
@@ -35,12 +40,12 @@ export const useMarketStore = create<State & Actions>((set, get) => ({
       get().subscribe(get().tickerSymbols)
     }
     socket.onclose = () => console.log('WS closed')
-    socket.onerror = (e) => console.error('WS error', e)
-    socket.onmessage = (event) => {
+    socket.onerror = (e: Event) => console.error('WS error', e)
+    socket.onmessage = (event: MessageEvent) => {
       try {
-        const msg = JSON.parse(event.data)
+        const msg: any = JSON.parse(event.data as string)
         if (msg.type === 'price') {
-          set(state => ({
+          set((state) => ({
             prices: { ...state.prices, [msg.symbol]: { price: msg.price, prevClose: msg.prevClose ?? msg.price, ts: msg.ts } }
           }))
         }
