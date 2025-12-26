@@ -11,7 +11,16 @@ export default function Home(){
   const [news, setNews] = useState<NewsItem[]>([])
   const prices = useMarketStore(s => s.prices)
 
-  useEffect(() => { fetchNews().then(setNews).catch(()=>{}) }, [])
+  useEffect(() => {
+  fetchNews()
+    .then((data) => {
+      setNews(Array.isArray(data) ? data : [])
+    })
+    .catch(() => {
+      setNews([])
+    })
+}, [])
+
 
   return (
     <div className="space-y-6">
